@@ -10,13 +10,11 @@
 </head>
 <body>
 
-<div class="container">
-    <br>
-    <br>
-    <form enctype="multipart/form-data" action="/file" method="post">
-    <input type="file" name="uploadfile" />
-    <input type="hidden" name="token" value="{{.}}"/>
-    <input type="submit" value="upload" />
+    <div class="container">
+    <form enctype="multipart/form-data" action="/uploadfile" method="post">
+        <input type="file" name="uploadfile" />
+        <input type="hidden" name="token" value="{{.}}"/>
+        <input type="submit" value="upload" />
     </form>
     </div>
 </body>

@@ -6,8 +6,8 @@ import (
 	"encoding/hex"
 	"fmt"
 	"log"
-	"urlProject/server/model"
-	_ "urlProject/server/model"
+	"UrlShortener/server/model"
+
 )
 
 const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -35,7 +35,7 @@ func GetShortUrl(longUrl string,custom string)string {
 
 	if(custom == "default"){
 
-		shortUrl = "localhost:8882/short/" + Encode(model.Count)
+		shortUrl = "localhost:8882/short/" + Encode(model.Count + 1)
 
 	} else {
 

@@ -1,9 +1,11 @@
 package UrlController
 
 import (
+	"bufio"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
+	"os"
 	"urlProject/server/model"
 
 	"fmt"
@@ -77,9 +79,36 @@ func Getfile(c *gin.Context){
 	if err != nil {
 		log.Fatal(err)
 	}
+	readFile(file.Filename)
 	c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded!", file.Filename))
 
+	c.Redirect(301 ,"/")
 
 
+
+}
+
+func readFile(f string){
+
+	var longUrl string
+	file, err := os.Open("saved/"+f)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		longUrl = scanner.Text()
+
+		shortURL := ShortUrl.GetShortUrl(longUrl,"default")
+
+		fmt.Println(shortURL)
+	}
+
+	if err := scanner.Err(); err != nil {
+
+		log.Fatal(err)
+	}
 
 }

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"urlProject/server/handlers/HomeController"
-	_ "urlProject/server/handlers/HomeController"
-	"urlProject/server/handlers/UrlController"
-	_ "urlProject/server/handlers/UrlController"
+	"UrlShortener/server/handlers/HomeController"
+
+	"UrlShortener/server/handlers/UrlController"
+
 )
 
 
@@ -20,7 +20,7 @@ func InitializeRoutes() {
 
 	router.GET("/file" ,UrlController.FileForm)
 
-	router.POST("/file",UrlController.Getfile)
+	router.POST("/uploadfile",UrlController.Getfile)
 
 
 
