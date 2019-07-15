@@ -35,12 +35,12 @@ func GetShortUrl(longUrl string,custom string)string {
 
 	if(custom == "default"){
 
-		shortUrl = "localhost:8882/short/" + Encode(model.Count + 1)
+		shortUrl = "localhost:8882/reshmi/" + Encode(model.Count + 1)
 
 	} else {
 
 		fmt.Println(custom)
-		shortUrl = "localhost:8882/short/" + custom
+		shortUrl = "localhost:8882/reshmi/" + custom
 
 	}
 

@@ -6,11 +6,11 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"urlProject/server/model"
+	"UrlShortener/server/model"
 
 	"fmt"
-	"urlProject/server/ShortUrl"
-	_ "urlProject/server/ShortUrl"
+	"UrlShortener/server/ShortUrl"
+
 )
 
 func Create(c *gin.Context) {
@@ -30,15 +30,16 @@ func Create(c *gin.Context) {
 
 func GetLong(c *gin.Context){
 
+	fmt.Println("Yo")
 
 	var long string
-
 	var shortUrl string
 	var err error
 
-	fmt.Println("getLong entered"+c.Param("url1"))
+	fmt.Println(c.Param("url"))
+	fmt.Println("getLong entered "+c.Param("url"))
 
-	shortUrl = "localhost:8882/short/"+ c.Param("url1")
+	shortUrl = "localhost:8882/reshmi/"+ c.Param("url")
 
 	fmt.Println("after appending"+shortUrl)
 
@@ -56,6 +57,7 @@ func GetLong(c *gin.Context){
 		c.Redirect(http.StatusMovedPermanently, long)
 
 	}
+
 
 }
 

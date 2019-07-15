@@ -10,9 +10,11 @@ import (
 
 func InitializeRoutes() {
 
+
+
 	router.LoadHTMLGlob("templates/*")
 
-	router.GET("/short/:url1", UrlController.GetLong)
+	router.GET("/reshmi/:url", UrlController.GetLong)
 
 	router.GET("/", HomeController.Index)
 

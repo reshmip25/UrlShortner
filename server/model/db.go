@@ -10,7 +10,7 @@ var db *sql.DB
 var Count uint64
 
 
-func init() {
+func Index() {
 	var err error
 
 	db, err = sql.Open("mysql", "root:root@tcp(127.0.0.1:8889)/hello")
