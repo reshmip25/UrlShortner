@@ -16,7 +16,6 @@ func Index() {
 
 	db, err = sql.Open("mysql", "root:root@tcp(127.0.0.1:8889)/hello")
 
-
 	if err != nil {
 		log.Println(err)
 	}
@@ -26,7 +25,25 @@ func Index() {
 		fmt.Println(err)
 	}
 
-	 //err = db.QueryRow("SELECT COUNT(*) FROM UrlData").Scan(&Count)
+
+	var stmt *sql.Stmt
+
+	stmt, err = db.Prepare("CREATE TABLE UrlData (ID integer ,hashedValue VARCHAR(255) UNIQUE , longURL VARCHAR(255) ,shortUrl VARCHAR(255) , hits INTEGER,PRIMARY KEY(ID))")
+
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	_, err = stmt.Exec()
+
+
+	if err != nil {
+		log.Println(err.Error())
+	} else {
+		fmt.Println("Table created successfully")
+	}
+
+
 }
 
 
@@ -35,7 +52,7 @@ func Create(hashedValue string ,longUrl string,custom string) (error , uint64){
 	var ID uint64
 	var hits int
 
-	_, err := db.Query("Insert into UrlData (hashedValue,longURL,hits) Values (?,?,?)", hashedValue, longUrl,hits)
+	_, err := db.Query("Insert into UrlData (hashedValue,longURL,hits,shortUrl) Values (?,?,?,?)", hashedValue, longUrl,hits,longUrl)
 
 	if(err == nil){
 
@@ -77,10 +94,17 @@ func Update(shortUrl string,hits int){
 
 }
 
-func UpdateShort(ID uint64, shortUrl string){
+func UpdateShort(ID uint64, shortUrl string)error{
 
 
-	db.Query("UPDATE UrlData SET shortUrl =? where ID = ?", shortUrl, ID)
+	_,err:=db.Query("UPDATE UrlData SET shortUrl =? where ID = ?", shortUrl, ID)
+
+	if(err!=nil){
+
+		db.Query("Delete from UrlData where ID=?",ID)
+	}
+
+	return err
 }
 
 

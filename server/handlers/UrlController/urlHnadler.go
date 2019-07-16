@@ -22,10 +22,17 @@ func Create(c *gin.Context) {
 
 	fmt.Println(shortURL)
 
-	c.HTML(200, "result.html" ,gin.H{
-		"success": shortURL,
+	if(shortURL =="false"){
 
-	})
+		c.HTML(200, "result2.html" ,gin.H{
+
+		})
+	}else {
+
+		c.HTML(200, "result.html", gin.H{
+			"success": shortURL,
+		})
+	}
 
 }
 
@@ -104,7 +111,7 @@ func readFile(f string){
 	fmt.Println("Processing data from "+ f)
 
 	var longUrl string
-	file, err := os.Open("saved/"+f)
+	file, err := os.Open("saved/" + f)
 	if err != nil {
 		log.Fatal(err)
 	}

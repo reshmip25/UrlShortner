@@ -51,7 +51,14 @@ func GetShortUrl(longUrl string,custom string)string {
 
 	}
 
-	model.UpdateShort(ID,shortUrl)
+	err = model.UpdateShort(ID,shortUrl)
+	if(err!=nil){
+
+		log.Println(err)
+
+		return "false"
+
+	}
 
 	return shortUrl
 
