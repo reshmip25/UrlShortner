@@ -1,5 +1,3 @@
 https://dev.to/codehakase/building-a-web-app-with-go-gin-and-react-5ke
-
 https://mindbowser.com/golang-go-with-gorm-2/
-
 https://semaphoreci.com/community/tutorials/building-go-web-applications-and-microservices-using-gin

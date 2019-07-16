@@ -16,12 +16,10 @@ const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 /* Retrieve the short URL
 
 @param longUrl string
-@param db *sql.DB
-@param count integer(uint64)    ---no of entries in the table
-@param custom string  			---Custom url by user(default value = default)
+@param custom string  	---Custom url by user(default value = default)
 
 
-@return string  ----shortUrl
+@return string        ----shortUrl
 
 */
 

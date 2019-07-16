@@ -7,11 +7,11 @@ import (
 	"net/http"
 	"os"
 	"UrlShortener/server/model"
-
 	"fmt"
 	"UrlShortener/server/ShortUrl"
 
 )
+
 
 func Create(c *gin.Context) {
 
@@ -66,7 +66,11 @@ func FileForm(c *gin.Context){
 
 	c.HTML(200, "getfile.html" ,gin.H{
 	})
+
+
 }
+
+
 
 func Getfile(c *gin.Context){
 
@@ -81,16 +85,22 @@ func Getfile(c *gin.Context){
 	if err != nil {
 		log.Fatal(err)
 	}
-	readFile(file.Filename)
+
+	go readFile(file.Filename)
+
+
 	c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded!", file.Filename))
 
 	c.Redirect(301 ,"/")
 
 
 
+
 }
 
 func readFile(f string){
+
+	fmt.Println("Processing data from "+ f)
 
 	var longUrl string
 	file, err := os.Open("saved/"+f)
@@ -101,16 +111,20 @@ func readFile(f string){
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		longUrl = scanner.Text()
 
-		shortURL := ShortUrl.GetShortUrl(longUrl,"default")
+			longUrl = scanner.Text()
 
-		fmt.Println(shortURL)
+			shortURL := ShortUrl.GetShortUrl(longUrl, "default")
+
+			fmt.Println(shortURL)
+
 	}
 
 	if err := scanner.Err(); err != nil {
 
 		log.Fatal(err)
 	}
+
+	fmt.Println("Completed Processing")
 
 }
