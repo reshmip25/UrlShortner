@@ -9,9 +9,10 @@ import (
 	"UrlShortener/server/model"
 	"fmt"
 	"UrlShortener/server/ShortUrl"
-
+	"sync"
 )
 
+var wg sync.WaitGroup
 
 func Create(c *gin.Context) {
 
@@ -111,12 +112,18 @@ func readFile(f string){
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
+		wg.Add(1)
+		longUrl = scanner.Text()
 
-			longUrl = scanner.Text()
 
+		go func(longUrl string) {
 			shortURL := ShortUrl.GetShortUrl(longUrl, "default")
 
 			fmt.Println(shortURL)
+
+			wg.Done()
+
+		}(longUrl)
 
 	}
 
@@ -124,6 +131,8 @@ func readFile(f string){
 
 		log.Fatal(err)
 	}
+
+	wg.Wait()
 
 	fmt.Println("Completed Processing")
 

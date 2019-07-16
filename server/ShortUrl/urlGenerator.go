@@ -30,19 +30,7 @@ func GetShortUrl(longUrl string,custom string)string {
 	var shortUrl string
 	hashedValue := GetMD5Hash(longUrl)
 
-
-	if(custom == "default"){
-
-		shortUrl = "localhost:8882/reshmi/" + Encode(model.Count + 1)
-
-	} else {
-
-		fmt.Println(custom)
-		shortUrl = "localhost:8882/reshmi/" + custom
-
-	}
-
-	err := model.Create(hashedValue,longUrl,shortUrl)
+	err,ID := model.Create(hashedValue,longUrl,custom)
 
 	if(err != nil){
 
@@ -53,6 +41,18 @@ func GetShortUrl(longUrl string,custom string)string {
 
 		return shortU
 	}
+	if(custom == "default"){
+
+		shortUrl = "localhost:8882/reshmi/" + Encode(ID)
+
+	} else {
+
+		shortUrl = "localhost:8882/reshmi/" + custom
+
+	}
+
+	model.UpdateShort(ID,shortUrl)
+
 	return shortUrl
 
 }
